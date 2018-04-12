@@ -110,6 +110,10 @@
 
 .comments {
   padding: 1.25rem;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 /***** MODAL *****/
