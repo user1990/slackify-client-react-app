@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Header } from 'semantic-ui-react';
 
-const TopHeader = ({ channelName }) => (
+const TopHeader = ({ channel }) => (
   <div className="header">
-    <Header textAlign="center">#{channelName}</Header>
+    <Header textAlign="center">#{channel.name}</Header>
   </div>
 );
 

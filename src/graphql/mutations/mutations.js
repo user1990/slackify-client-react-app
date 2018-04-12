@@ -69,3 +69,10 @@ export const createChannelMutation = gql`
     }
   }
 `;
+
+// Create a message
+export const createMessageMutation = gql`
+  mutation($channelId: Int!, $text: String!) {
+    createMessage(channelId: $channelId, text: $text)
+  }
+`;

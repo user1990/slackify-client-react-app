@@ -7,11 +7,6 @@
   grid-template-rows: auto 1fr auto;
 }
 
-.view-team__input {
-  grid-column: 3;
-  grid-row: 3;
-}
-
 /***** CHANNELS *****/
 .channels {
   background-color: #4e3a4c;
@@ -106,6 +101,11 @@
 .messages {
   grid-column: 3;
   grid-row: 2;
+}
+
+.send-message__input {
+  grid-column: 3;
+  padding: 1.25rem;
 }
 
 /***** MODAL *****/

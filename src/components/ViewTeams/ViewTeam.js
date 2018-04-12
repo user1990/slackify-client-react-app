@@ -45,9 +45,11 @@ const ViewTeam = ({
         }))}
         team={team}
       />
-      {channel && <Header channelName={channel.name} />}
+      {channel && <Header channel={channel} />}
       {channel && <Messages channelId={channel.id} />}
-      {channel && <SendMessage channelName={channel.name} />}
+      {channel && (
+        <SendMessage channelName={channel.name} channelId={channel.id} />
+      )}
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Messages = () => (
-  <div className="messages">
-    MESSAGES
-    <ul className="messages-list">
-      <li className="messages-list__item" />
-      <li className="messages-list__item" />
-    </ul>
-  </div>
-);
+import { graphql } from 'react-apollo';
+import { messagesQuery } from '../../graphql/queries/queries';
 
-export default Messages;
+const Messages = ({ data: { loading, messages } }) =>
+  loading ? null : <div>{JSON.stringify(messages)}</div>;
+
+export default graphql(messagesQuery, {
+  variables: props => ({
+    channelId: props.channelId,
+  }),
+})(Messages);
