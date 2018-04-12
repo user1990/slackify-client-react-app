@@ -3,7 +3,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import findIndex from 'lodash/findIndex';
-import { allTeamsQuery } from '../../graphql/queries/queries';
+import { meQuery } from '../../graphql/queries/queries';
 
 import Sidebar from './Sidebar';
 import Header from './Header';
@@ -11,19 +11,19 @@ import Messages from './Messages';
 import SendMessage from './SendMessage';
 
 const ViewTeam = ({
-  data: { loading, allTeams, inviteTeams },
+  data: { loading, me },
   match: { params: { teamId, channelId } },
 }) => {
   if (loading) {
     return null;
   }
 
+  const { username, teams } = me;
+
   // Redirect to create-team page if where not any teams created yet
-  if (!allTeams.length) {
+  if (!teams.length) {
     return <Redirect to="/create-team" />;
   }
-
-  const teams = [...allTeams, ...inviteTeams];
 
   const teamIdInteger = parseInt(teamId, 10);
   const teamIdx = teamIdInteger ? findIndex(teams, ['id', teamIdInteger]) : 0;
@@ -44,6 +44,7 @@ const ViewTeam = ({
           letter: t.name.charAt(0).toUpperCase(),
         }))}
         team={team}
+        username={username}
       />
       {channel && <Header channel={channel} />}
       {channel && <Messages channelId={channel.id} />}
@@ -54,4 +55,8 @@ const ViewTeam = ({
   );
 };
 
-export default graphql(allTeamsQuery)(ViewTeam);
+export default graphql(meQuery, {
+  options: {
+    fetchPolicy: 'network-only',
+  },
+})(ViewTeam);

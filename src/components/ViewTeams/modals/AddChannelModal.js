@@ -3,8 +3,9 @@ import React from 'react';
 import { Form, Input, Button, Modal } from 'semantic-ui-react';
 import { compose, graphql } from 'react-apollo';
 import { withFormik } from 'formik';
+import findIndex from 'lodash/findIndex';
 import { createChannelMutation } from '../../../graphql/mutations/mutations';
-import { allTeamsQuery } from '../../../graphql/queries/queries';
+import { meQuery } from '../../../graphql/queries/queries';
 
 const AddChannelModal = ({
   open,
@@ -69,10 +70,10 @@ export default compose(
             return;
           }
 
-          const data = store.readQuery({ query: allTeamsQuery });
-          const teamIdx = data.allTeams.findIndex(team => team.id === teamId);
-          data.allTeams[teamIdx].channels.push(channel);
-          store.writeQuery({ query: allTeamsQuery, data });
+          const data = store.readQuery({ query: meQuery });
+          const teamIdx = findIndex(data.me.teams, ['id', teamId]);
+          data.me.teams[teamIdx].channels.push(channel);
+          store.writeQuery({ query: meQuery, data });
         },
       });
       onClose();
