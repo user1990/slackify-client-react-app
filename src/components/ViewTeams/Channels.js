@@ -21,6 +21,7 @@ const user = ({ id, name }) => (
 
 const Channels = ({
   team,
+  isOwner,
   username,
   users,
   onAddChannelModal,
@@ -34,7 +35,8 @@ const Channels = ({
     <div>
       <ul className="channels__list">
         <h4 className="channels__heading">
-          Channels<Icon name="add circle" onClick={onAddChannelModal} />
+          Channels{' '}
+          {isOwner && <Icon name="add circle" onClick={onAddChannelModal} />}
         </h4>
         {team.channels.map(c => channel(c, team.id))}
       </ul>
@@ -45,11 +47,13 @@ const Channels = ({
         {users.map(user)}
       </ul>
     </div>
-    <div>
-      <a href="#invite-people" onClick={onInvitePeopleModal}>
-        + Invite people
-      </a>
-    </div>
+    {isOwner && (
+      <div>
+        <a href="#invite-people" onClick={onInvitePeopleModal}>
+          + Invite people
+        </a>
+      </div>
+    )}
   </div>
 );
 
