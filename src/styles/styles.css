@@ -108,6 +108,10 @@
   padding: 1.25rem;
 }
 
+.comments {
+  padding: 1.25rem;
+}
+
 /***** MODAL *****/
 .center-modal {
   transform: translate(-50%, -50%);
