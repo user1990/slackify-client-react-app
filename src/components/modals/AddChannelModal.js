@@ -4,8 +4,8 @@ import { Form, Input, Button, Modal } from 'semantic-ui-react';
 import { compose, graphql } from 'react-apollo';
 import { withFormik } from 'formik';
 import findIndex from 'lodash/findIndex';
-import { createChannelMutation } from '../../../graphql/mutations/mutations';
-import { meQuery } from '../../../graphql/queries/queries';
+import { createChannelMutation } from '../../graphql/mutations/mutations';
+import { meQuery } from '../../graphql/queries/queries';
 
 const AddChannelModal = ({
   open,

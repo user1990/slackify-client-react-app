@@ -15,34 +15,37 @@ const middlewareLink = setContext(() => ({
   },
 }));
 
-const afterwareLink = new ApolloLink((operation, forward) => {
-  const { headers } = operation.getContext();
+const afterwareLink = new ApolloLink((operation, forward) =>
+  forward(operation).map(response => {
+    const {
+      response: { headers },
+    } = operation.getContext();
+    if (headers) {
+      const token = headers.get('x-token');
+      const refreshToken = headers.get('x-refresh-token');
 
-  if (headers) {
-    const token = headers.get('x-token');
-    const refreshToken = headers.get('x-refresh-token');
+      if (token) {
+        localStorage.setItem('token', token);
+      }
 
-    if (token) {
-      localStorage.setItem('token', token);
+      if (refreshToken) {
+        localStorage.setItem('refreshToken', refreshToken);
+      }
     }
 
-    if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken);
-    }
-  }
-
-  return forward(operation);
-});
+    return response;
+  })
+);
 
 const httpLinkWithMiddleware = afterwareLink.concat(
   middlewareLink.concat(httpLink)
 );
 
 const wsLink = new WebSocketLink({
-  uri: 'ws://localhost:8081/subscriptions',
+  uri: 'ws://localhost:5000/subscriptions',
   options: {
     reconnect: true,
-    connectParams: {
+    connectionParams: {
       token: localStorage.getItem('token'),
       refreshToken: localStorage.getItem('refreshToken'),
     },

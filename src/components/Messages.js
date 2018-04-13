@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { graphql } from 'react-apollo';
 import { Comment } from 'semantic-ui-react';
-import { messagesQuery } from '../../graphql/queries/queries';
-import { newChannelMessageSubscription } from '../../graphql/subscriptions/subscriptions';
+import { messagesQuery } from '../graphql/queries/queries';
+import { newChannelMessageSubscription } from '../graphql/subscriptions/subscriptions';
 
 class Messages extends Component {
   componentWillMount = () => {

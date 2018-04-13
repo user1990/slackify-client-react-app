@@ -4,11 +4,12 @@ import { Route, Switch } from 'react-router-dom';
 import decode from 'jwt-decode';
 
 import Home from '../components/Home';
-import ViewTeam from '../components/ViewTeams/ViewTeam';
+import ViewTeam from '../components/ViewTeam';
 import Register from '../components/Forms/Register';
 import Login from '../components/Forms/Login';
 import CreateTeam from '../components/Forms/CreateTeam';
 import PrivateRoute from './PrivateRoute';
+import DirectMessages from '../components/DirectMessages';
 
 export const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -29,6 +30,11 @@ const App = () => (
       <Route exact path="/" component={Home} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
+      <PrivateRoute
+        path="/view-team/user/:teamId/:userId"
+        exact
+        component={DirectMessages}
+      />
       <PrivateRoute
         path="/view-team/:teamId?/:channelId?"
         exact

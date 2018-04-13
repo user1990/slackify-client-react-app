@@ -3,9 +3,9 @@ import React from 'react';
 import { Form, Input, Button, Modal } from 'semantic-ui-react';
 import { compose, graphql } from 'react-apollo';
 import { withFormik } from 'formik';
-import { addTeamMemberMutation } from '../../../graphql/mutations/mutations';
+import { addTeamMemberMutation } from '../../graphql/mutations/mutations';
 
-import normalizeErrors from '../../../utils/normalizeErrors';
+import normalizeErrors from '../../utils/normalizeErrors';
 
 const InvitePeopleModal = ({
   open,

@@ -58,7 +58,10 @@ class CreateTeam extends Component {
   };
 
   render() {
-    const { name, errors: { nameError } } = this;
+    const {
+      name,
+      errors: { nameError },
+    } = this;
 
     const errorList = [];
 

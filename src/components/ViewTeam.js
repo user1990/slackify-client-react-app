@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { Redirect } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { compose, graphql } from 'react-apollo';
 import findIndex from 'lodash/findIndex';
-import { meQuery } from '../../graphql/queries/queries';
+import { meQuery } from '../graphql/queries/queries';
+import { createMessageMutation } from '../graphql/mutations/mutations';
 
 import Sidebar from './Sidebar';
 import Header from './Header';
@@ -11,8 +12,11 @@ import Messages from './Messages';
 import SendMessage from './SendMessage';
 
 const ViewTeam = ({
+  mutate,
   data: { loading, me },
-  match: { params: { teamId, channelId } },
+  match: {
+    params: { teamId, channelId },
+  },
 }) => {
   if (loading) {
     return null;
@@ -37,7 +41,7 @@ const ViewTeam = ({
     channelIdx === -1 ? team.channels[0] : team.channels[channelIdx];
 
   return (
-    <div className="view-team">
+    <div className="app-container">
       <Sidebar
         teams={teams.map(t => ({
           id: t.id,
@@ -49,14 +53,18 @@ const ViewTeam = ({
       {channel && <Header channel={channel} />}
       {channel && <Messages channelId={channel.id} />}
       {channel && (
-        <SendMessage channelName={channel.name} channelId={channel.id} />
+        <SendMessage
+          placeholder={channel.name}
+          onSubmit={async text => {
+            await mutate({ variables: { text, channelId: channel.id } });
+          }}
+        />
       )}
     </div>
   );
 };
 
-export default graphql(meQuery, {
-  options: {
-    fetchPolicy: 'network-only',
-  },
-})(ViewTeam);
+export default compose(
+  graphql(meQuery, { options: { fetchPolicy: 'network-only' } }),
+  graphql(createMessageMutation)
+)(ViewTeam);
