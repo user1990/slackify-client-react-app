@@ -6,9 +6,9 @@ import findIndex from 'lodash/findIndex';
 import { meQuery } from '../graphql/queries/queries';
 import { createMessageMutation } from '../graphql/mutations/mutations';
 
-import Sidebar from './Sidebar';
+import Sidebar from '../containers/Sidebar';
 import Header from './Header';
-import Messages from './Messages';
+import Messages from '../containers/Messages';
 import SendMessage from './SendMessage';
 
 const ViewTeam = ({

@@ -54,7 +54,11 @@ class Login extends Component {
   };
 
   render() {
-    const { email, password, errors: { emailError, passwordError } } = this;
+    const {
+      email,
+      password,
+      errors: { emailError, passwordError },
+    } = this;
 
     const errorList = [];
 

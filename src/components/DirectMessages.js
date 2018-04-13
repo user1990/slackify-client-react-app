@@ -6,15 +6,18 @@ import { Redirect } from 'react-router-dom';
 
 import Header from './Header';
 import SendMessage from './SendMessage';
-import Sidebar from './Sidebar';
-import Messages from './Messages';
+import Sidebar from '../containers/Sidebar';
+import DirectMessage from '../containers/DirectMessage';
 
 import { meQuery } from '../graphql/queries/queries';
-import { createMessageMutation } from '../graphql/mutations/mutations';
+import { createDirectMessageMutation } from '../graphql/mutations/mutations';
 
 const ViewTeam = ({
+  mutate,
   data: { loading, me },
-  match: { params: { teamId, userId } },
+  match: {
+    params: { teamId, userId },
+  },
 }) => {
   if (loading) {
     return null;
@@ -40,14 +43,26 @@ const ViewTeam = ({
         team={team}
         username={username}
       />
-      {/* <Header channelName={channel.name} />
-      <Messages channelId={channel.id} /> */}
-      <SendMessage onSubmit={() => {}} placeholder={userId} />
+      <Header channelName="Someone's username" />
+      <DirectMessage teamId={teamId} userId={userId} />
+      <SendMessage
+        onSubmit={async text => {
+          const response = await mutate({
+            variables: {
+              text,
+              receiverId: userId,
+              teamId,
+            },
+          });
+          console.log(response);
+        }}
+        placeholder={userId}
+      />
     </div>
   );
 };
 
 export default compose(
   graphql(meQuery, { options: { fetchPolicy: 'network-only' } }),
-  graphql(createMessageMutation)
+  graphql(createDirectMessageMutation)
 )(ViewTeam);

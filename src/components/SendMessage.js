@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Input } from 'semantic-ui-react';
 import { withFormik } from 'formik';
-import { createMessageMutation } from '../graphql/mutations/mutations';
 
 const SendMessage = ({
   placeholder,

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-import Channels from './Channels';
-import Teams from './Teams';
+import Channels from '../components/Channels';
+import Teams from '../components/Teams';
 
-import AddChannelModal from './modals/AddChannelModal';
-import InvitePeopleModal from './modals/InvitePeopleModal';
+import AddChannelModal from '../components/modals/AddChannelModal';
+import InvitePeopleModal from '../components/modals/InvitePeopleModal';
 
 class Sidebar extends Component {
   state = {

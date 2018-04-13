@@ -44,10 +44,12 @@ class Messages extends Component {
     });
 
   render() {
-    const { data: { loading, messages } } = this.props;
+    const {
+      data: { loading, messages },
+    } = this.props;
 
     return loading ? null : (
-      <Comment.Group className="comments">
+      <Comment.Group className="messages">
         {messages.map(message => (
           <Comment key={`${message.id}-message`}>
             <Comment.Content>
