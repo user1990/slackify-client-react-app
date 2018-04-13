@@ -26,6 +26,7 @@ const Channels = ({
   users,
   onAddChannelModal,
   onInvitePeopleModal,
+  onDirectMessageModal,
 }) => (
   <div className="channels">
     <div className="channels__heading">
@@ -43,7 +44,12 @@ const Channels = ({
     </div>
     <div>
       <ul className="channels__list channels__heading">
-        <h4 className="channels__heading">Direct Messages</h4>
+        <h4 className="channels__heading">
+          Direct Messages<Icon
+            name="add circle"
+            onClick={onDirectMessageModal}
+          />
+        </h4>
         {users.map(user)}
       </ul>
     </div>
