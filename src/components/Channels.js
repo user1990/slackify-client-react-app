@@ -6,31 +6,35 @@ import { Link } from 'react-router-dom';
 const Bubble = ({ on = true }) =>
   on ? <span className="bubble">●</span> : '○';
 
-const channel = ({ id, name }, team) => (
-  <Link key={`channel-${id}`} to={`/view-team/${team}/${id}`}>
+const channel = ({ id, name }, teamId) => (
+  <Link key={`channel-${id}`} to={`/view-team/${teamId}/${id}`}>
     <li className="channels__list--item"># {name}</li>
   </Link>
 );
 
-const user = ({ id, name }) => (
+const user = ({ id, username }, teamId) => (
   <li key={`user-${id}`}>
-    <Bubble />
-    <span className="channels__users-list--item">{name}</span>
+    <Link to={`/view-team/user/${teamId}/${id}`}>
+      <Bubble />
+      <span className="channels__users-list--item">{username}</span>
+    </Link>
   </li>
 );
 
 const Channels = ({
-  team,
+  teamName,
   isOwner,
   username,
   users,
+  teamId,
+  channels,
   onAddChannelModal,
   onInvitePeopleModal,
   onDirectMessageModal,
 }) => (
   <div className="channels">
     <div className="channels__heading">
-      <div className="channels__heading--team">{team.name}</div>
+      <div className="channels__heading--team">{teamName}</div>
       {username}
     </div>
     <div>
@@ -39,7 +43,7 @@ const Channels = ({
           Channels{' '}
           {isOwner && <Icon name="add circle" onClick={onAddChannelModal} />}
         </h4>
-        {team.channels.map(c => channel(c, team.id))}
+        {channels.map(c => channel(c, teamId))}
       </ul>
     </div>
     <div>
@@ -50,7 +54,7 @@ const Channels = ({
             onClick={onDirectMessageModal}
           />
         </h4>
-        {users.map(user)}
+        {users.map(u => user(u, teamId))}
       </ul>
     </div>
     {isOwner && (

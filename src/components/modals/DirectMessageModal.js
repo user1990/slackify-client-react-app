@@ -20,8 +20,8 @@ const DirectMessageModal = ({
         <Form.Field>
           {!loading && (
             <Downshift
-              onChange={selectUser => {
-                history.push(`/view-team/user/${teamId}/${selectUser.id}`);
+              onChange={selectedUser => {
+                history.push(`/view-team/user/${teamId}/${selectedUser.id}`);
                 onClose();
               }}
               render={({
@@ -34,7 +34,8 @@ const DirectMessageModal = ({
               }) => (
                 <div>
                   <Input
-                    {...getInputProps({ placeholder: 'Favorite fruit ?' })}
+                    {...getInputProps({ placeholder: 'Favorite color ?' })}
+                    fluid
                   />
                   {isOpen ? (
                     <div style={{ border: '1px solid #ccc' }}>

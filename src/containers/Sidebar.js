@@ -53,10 +53,12 @@ class Sidebar extends Component {
       <Teams key="team-sidebar" teams={teams} />,
       <Channels
         key="channels-sidebar"
-        team={team}
+        teamId={team.id}
+        teamName={team.name}
         isOwner={team.admin}
         username={username}
-        users={[{ id: 1, name: 'slackbot' }, { id: 2, name: 'user1' }]}
+        channels={team.channels}
+        users={team.directMessageMembers}
         onAddChannelModal={this.toggleAddChannelModal}
         onInvitePeopleModal={this.toggleInvitePeopleModal}
         onDirectMessageModal={this.toggleDirectMessageModal}
